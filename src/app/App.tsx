@@ -7,7 +7,7 @@ import { TechnologyIcon } from "./components/TechnologyIcon";
 
 import { FaRegFileAlt, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaCirclePlus } from "react-icons/fa6";
 
 import imgTwitter from "../imports/ProjetoPessoal/a5fe1130cf500224058598ebb6b444952c36a595.png";
 import imgFacebook from "../imports/ProjetoPessoal/57fdba435f4a25b10eea21d827fed7d3aa39887b.png";
@@ -23,6 +23,7 @@ import curriculumPdf from "../assets/cv/lucas-maia-cv.pdf";
 import { cardsAbout, technologies } from "../assets/utils/mocks";
 import { navItem, personalTheme, professionalTheme } from "../assets/utils/theme";
 import ContactCard from "./components/ContactCard";
+import { redirect } from "../assets/utils/tools";
 
 export default function App() {
   const [isPersonal, setIsPersonal] = useState(false);
@@ -70,12 +71,6 @@ export default function App() {
       image: theme.project4,
     },
   ];
-
-  const redirect = (link: string | undefined) => {
-    if(!link) return null;
-
-    window.open(link, "_blank")
-  }
 
   const handleCopy = async (value: string) => {
     await navigator.clipboard.writeText(value);
@@ -242,12 +237,14 @@ export default function App() {
               <ContactCard
                 icon={<FaGithub className="text-[#222950] w-5 h-5" />}
                 value="https://github.com/LucasF19"
+                link="https://github.com/LucasF19"
                 theme={theme}
               />
 
               <ContactCard
                 icon={<MdOutlineEmail className="text-[#222950] w-5 h-5" />}
                 value="lucasmaiaferreira6@gmail.com"
+                link="mailto:lucasmaiaferreira6@gmail.com"
                 theme={theme}
               />
             </motion.div>
@@ -310,20 +307,32 @@ export default function App() {
             const project = projects[index];
 
             if (project) {
+              const hasLink = Boolean(project.link);
+
               return (
                 <motion.div
                   initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.3, delay: index * 0.3}}
                   key={project.id}
-                  className="group cursor-pointer relative overflow-hidden rounded-[15px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] animate-in fade-in slide-in-from-bottom"
-                  onClick={() => redirect(project?.link)}
+                  className={`group relative overflow-hidden rounded-[15px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] animate-in fade-in slide-in-from-bottom ${hasLink ? "cursor-pointer" : "cursor-default"}`}
+                  onClick={() => hasLink && redirect(project.link)}
                 >
-                  <div className="h-[119px]">
+                  <div className="h-[119px] relative overflow-hidden">
                     <ImageWithFallback
                       alt={project.title}
-                      className="rounded-t-[15px] w-full h-full object-cover transition-transform duration-700"
+                      className="rounded-t-[15px] w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       src={project.image}
                     />
+
+                    {hasLink && (
+                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-2">
+                        <FaArrowUpRightFromSquare className="w-4 h-4 text-white" />
+                        <span className="text-white text-[13px] font-medium tracking-[1px]">
+                          Ver projeto
+                        </span>
+                      </div>
+                    )}
                   </div>
+
                   <div className="h-full flex flex-col gap-3 p-4 backdrop-blur-[4.6px] bg-[rgba(148,148,148,0.14)] rounded-b-[15px] border border-[rgba(255,255,255,0.05)]">
                     <h3 className="text-white text-[22px] text-center">
                       {project.title}
@@ -372,7 +381,7 @@ export default function App() {
             </button>
           </div>
           <p className="text-white text-[16px] text-center leading-normal mb-7">
-            Copyright © 2022 - 2023 All rights reserved | This website design <br /> was made by{' '}
+            Copyright © 2026 - All rights reserved | This website design <br /> was made by{' '}
             <span className="font-semibold" style={{ color: theme.highlightColor }}>Lucas Maia</span>
           </p>
           <p className="text-white text-[12px] text-center">

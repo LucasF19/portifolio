@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { MdContentCopy } from "react-icons/md";
 import { FaCheckCircle } from "react-icons/fa";
+import { redirect } from "../../assets/utils/tools";
 
 type ContactCardProps = {
   icon: React.ReactNode;
@@ -26,7 +27,7 @@ export default function ContactCard({ icon, value, theme, link }: ContactCardPro
     <div
       className="group h-[45px] rounded-[20px] p-1 px-2 flex items-center gap-[12px] cursor-pointer relative"
       style={{ background: theme.cardIconBg }}
-      onClick={handleCopy}
+      onClick={() => redirect(link ? link : undefined)}
     >
       <div
         className="flex items-center justify-center h-8 w-8 rounded-full bg-white"
@@ -39,7 +40,7 @@ export default function ContactCard({ icon, value, theme, link }: ContactCardPro
               {icon}
             </span>
 
-            <MdContentCopy className="hidden group-hover:block text-[#222950] w-4 h-4" />
+            <MdContentCopy onClick={handleCopy} className="hidden group-hover:block text-[#222950] w-4 h-4" />
           </>
         )}
       </div>
