@@ -2,6 +2,10 @@ import { FaAngular, FaGitAlt, FaNodeJs, FaPython, FaReact, FaVuejs } from "react
 import { SiJavascript, SiMui, SiTypescript } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
 
+import Brain from "../../assets/images/brain.png";
+import Clean from "../../assets/images/clean.png";
+import Paint from "../../assets/images/paint.png";
+
 export const technologies = [
   {
     id: 1,
@@ -177,16 +181,16 @@ export const cardsAbout = [
   {
     title: "Mentalidade",
     description: "Foco em performance e usabilidade, sempre buscando soluções escaláveis.",
-    imagePath: "src/assets/images/brain.png"
+    imagePath: Brain
   },
   {
     title: "Código Limpo",
     description: "Código bem estruturado, boas práticas e atenção aos detalhes.",
-    imagePath: "src/assets/images/clean.png"
+    imagePath: Clean
   },
   {
     title: "Design",
     description: "Desenvolvedor com visão de design, criando interfaces que unem estética e funcionalidade.",
-    imagePath: "src/assets/images/paint.png"
+    imagePath: Paint
   },
 ]

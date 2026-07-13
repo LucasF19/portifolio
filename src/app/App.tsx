@@ -252,11 +252,11 @@ export default function App() {
             <div className="h-full flex gap-[27px]">
               {
                 cardsAbout.map((item: any, index: number) => (
-                  <motion.div className="rounded-[15px] bg-[#121525] p-2" initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8, delay: index * 0.2,}}>
+                  <motion.div key={item.id} className="rounded-[15px] bg-[#121525] p-2" initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8, delay: index * 0.2,}}>
                     <div className="h-full flex flex-col gap-5 items-center border-2 justify-start px-[25px] py-8 rounded-[15px]" style={{ borderColor: theme.borderCardsAbout }}>
                       <div className="rounded-full w-[80px] h-[80px] flex items-center justify-center bg-transparent" style={{ border: `2px solid ${theme.iconBorder}` }}>
                         <div className="flex items-center justify-center rounded-full w-[70px] h-[70px]" style={{ backgroundColor: theme.cardIconBg, }}>
-                          <img className="w-10" src={`${item.imagePath}`} />
+                          <img src={item.imagePath} alt={item.title} className="w-10" />
                         </div>
                       </div>
                       <h3 className="text-[#f3f3f3] text-[18px] font-bold text-center w-full tracking-[2px]">
