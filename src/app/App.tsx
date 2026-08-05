@@ -9,78 +9,25 @@ import { FaRegFileAlt, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaArrowUpRightFromSquare, FaCirclePlus } from "react-icons/fa6";
 
-import imgTwitter from "../imports/ProjetoPessoal/a5fe1130cf500224058598ebb6b444952c36a595.png";
-import imgFacebook from "../imports/ProjetoPessoal/57fdba435f4a25b10eea21d827fed7d3aa39887b.png";
-import imgYoutube from "../imports/ProjetoPessoal/232e9521e6f117d8012d37da4dd191a08b2ae8bc.png";
-import imgInstagram from "../imports/ProjetoPessoal/2237c3947840814abfaeadba7897348b541db330.png";
+import { cardsAbout, linkTypeConfig, projects, technologies } from "../assets/utils/mocks";
+import { navItem, personalTheme, professionalTheme } from "../assets/utils/theme";
+import { redirect } from "../assets/utils/tools";
 
-import imgBgProfessional from "../imports/ProjetoProfissional/0155c8a9b33dd22dbe5d6da3979ea02aff7441d1.png";
-import imgBgPersonal from "../imports/ProjetoPessoal/d44c790025165179347b4d743a9c0f98da7fc27d.png";
+import imgBgProfessional from "../imports/ProjetoProfissional/mainBackground.png";
+import imgBgPersonal from "../imports/ProjetoPessoal/mainBackground.png";
+
 import svgPathsPersonal from "../imports/ProjetoPessoal/svg-86xydgqyks";
 import svgPathsProfessional from "../imports/ProjetoProfissional/svg-9qr9mfx9n8";
 import curriculumPdf from "../assets/cv/lucas-maia-cv.pdf";
 
-import { cardsAbout, technologies } from "../assets/utils/mocks";
-import { navItem, personalTheme, professionalTheme } from "../assets/utils/theme";
 import ContactCard from "./components/ContactCard";
-import { redirect } from "../assets/utils/tools";
 
 export default function App() {
   const [isPersonal, setIsPersonal] = useState(false);
   const [selectedTech, setSelectedTech] = useState<number | null>(null);
-  const [copied, setCopied] = useState(false);
-  
+
   const timeoutRef = useRef<any>(1);
   const theme = isPersonal ? professionalTheme : personalTheme;
-
-  const projects = [
-    {
-      id: 1,
-      title: "Ash Up",
-      description:
-        "Projeto desenvolvido com foco em gameplay dinâmica, interface moderna e integração entre front-end e lógica de jogo.",
-      technologies: "GameMaker - React",
-      image: theme.project1,
-    },
-
-    {
-      id: 2,
-      title: "Solars Movies",
-      description:
-        "Aplicação de catálogo de filmes com foco em experiência do usuário, navegação intuitiva e design responsivo.",
-      technologies: "React - Mui",
-      image: theme.project2,
-    },
-
-    {
-      id: 3,
-      title: "Imovie",
-      description:
-        "Sistema completo para exibição de filmes consumindo API externa com filtros, autenticação e gerenciamento de conteúdo.",
-      technologies: "React - Mui - Tmdb - Node",
-      image: theme.project3,
-      link: "https://i-movie-vmuy.vercel.app/home"
-    },
-
-    {
-      id: 4,
-      title: "Golden Tech",
-      description:
-        "Landing page institucional moderna desenvolvida para apresentação empresarial e captação de clientes.",
-      technologies: "PHP - Bootstrap",
-      image: theme.project4,
-    },
-  ];
-
-  const handleCopy = async (value: string) => {
-    await navigator.clipboard.writeText(value);
-  
-    setCopied(true);
-  
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
-  }
 
   return (
     <div>
@@ -159,10 +106,10 @@ export default function App() {
           </div>
 
           <div className="text-white w-[435px]">
-            <motion.h1 initial={{opacity: 0, y: -40}} animate={{opacity: 1, y: 0}} transition={{ duration: 0.8}} className="text-[45px] mb-2 text-shadow-lg font-bold tracking-[11px] leading-[50px]">
+            <motion.h1 initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-[45px] mb-2 text-shadow-lg font-bold tracking-[11px] leading-[50px]">
               OLÁ, SEJA BEM-VINDO
             </motion.h1>
-            <motion.p initial={{opacity: 0, y: -40}} animate={{opacity: 1, y: 0}} transition={{ duration: 0.8, delay: 0.3}} className="font-light text-[17px] tracking-[3px] leading-[20px]">
+            <motion.p initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="font-light text-[17px] tracking-[3px] leading-[20px]">
               Conheça projetos em que me dediquei durante minha carreira.
             </motion.p>
           </div>
@@ -186,27 +133,21 @@ export default function App() {
               <FaRegFileAlt className="w-4 h-4" />
             </button>
           </div>
-
-          <div className="absolute top-[93%] left-[50%] w-[93px] h-[27px] flex items-center justify-center rotate-180">
-            <svg width="81" height="21" viewBox="0 0 81 21" fill="none">
-              <path d={isPersonal ? svgPathsPersonal.p2f172a40 : svgPathsProfessional.p2f172a40} fill="white" fillOpacity="0.96" />
-            </svg>
-          </div>
         </div>
       </div>
 
       <div className="p-5 bg-[#080b1a]" id="about">
         <div className="flex items-stretch justify-between">
           <div className="max-w-[520px]">
-            <motion.h3 initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8}} className="text-white text-[35px] font-semibold drop-shadow-lg">
+            <motion.h3 initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8 }} className="text-white text-[35px] font-semibold drop-shadow-lg">
               Sobre
             </motion.h3>
-            <motion.p initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.8}} transition={{ duration: 0.8, delay: 0.3}} className="text-[#f3f3f3] text-[18px] font-light tracking-[2px]">
+            <motion.p initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.8, delay: 0.3 }} className="text-[#f3f3f3] text-[18px] font-light tracking-[2px]">
               Desenvolvimento de aplicações modernas com foco na experiência do usuário.
             </motion.p>
             <div className="flex flex-wrap gap-4 mt-7">
               {technologies.map((tech, index) => (
-                <motion.div initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8, delay: index * 0.1,}}>
+                <motion.div initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8, delay: index * 0.1, }}>
                   <TechnologyIcon
                     key={tech.id}
                     icon={tech.icon}
@@ -226,7 +167,7 @@ export default function App() {
           </div>
 
           <div className="flex flex-col gap-4 h-auto">
-            <motion.div className="flex items-end justify-end gap-[8px]" initial={{opacity: 0 }} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 2 }}>
+            <motion.div className="flex items-end justify-end gap-[8px]" initial={{ opacity: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 2 }}>
               <ContactCard
                 icon={<FaLinkedinIn className="text-[#222950] w-5 h-5" />}
                 value="Lucas Maia"
@@ -252,7 +193,7 @@ export default function App() {
             <div className="h-full flex gap-[27px]">
               {
                 cardsAbout.map((item: any, index: number) => (
-                  <motion.div key={item.id} className="rounded-[15px] bg-[#121525] p-2" initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8, delay: index * 0.2,}}>
+                  <motion.div key={item.id} className="rounded-[15px] bg-[#121525] p-2" initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8, delay: index * 0.2, }}>
                     <div className="h-full flex flex-col gap-5 items-center border-2 justify-start px-[25px] py-8 rounded-[15px]" style={{ borderColor: theme.borderCardsAbout }}>
                       <div className="rounded-full w-[80px] h-[80px] flex items-center justify-center bg-transparent" style={{ border: `2px solid ${theme.iconBorder}` }}>
                         <div className="flex items-center justify-center rounded-full w-[70px] h-[70px]" style={{ backgroundColor: theme.cardIconBg, }}>
@@ -273,7 +214,7 @@ export default function App() {
           </div>
         </div>
 
-        <motion.div initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8}}>
+        <motion.div initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8 }}>
           <TechnologyInfo
             selectedTech={selectedTech}
             technologies={technologies}
@@ -294,16 +235,16 @@ export default function App() {
       </div>
 
       <div className="p-5" style={{ backgroundImage: `linear-gradient(to bottom, ${theme.gradientFrom}, ${theme.gradientTo})` }} id="projects">
-        <motion.h2 initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8}} className="text-white text-[35px] font-semibold drop-shadow-lg">
+        <motion.h2 initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8 }} className="text-white text-[35px] font-semibold drop-shadow-lg">
           Projetos
         </motion.h2>
 
-        <motion.p initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.8, delay: 0.5}} className="text-[#f3f3f3] text-[18px] font-light tracking-[2px]">
+        <motion.p initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8, delay: 0.5 }} className="text-[#f3f3f3] text-[18px] font-light tracking-[2px]">
           Explore projetos desenvolvidos durante minha jornada.
         </motion.p>
 
-        <div className="grid grid-cols-5 gap-8 mt-7">
-          {[...Array(10)].map((_, index) => {
+        <div className="grid grid-cols-4 gap-6 my-7">
+          {[...Array(8)].map((_, index) => {
             const project = projects[index];
 
             if (project) {
@@ -311,40 +252,65 @@ export default function App() {
 
               return (
                 <motion.div
-                  initial={{opacity: 0, y: -40}} whileInView={{opacity: 1, y: 0}} viewport={{once: true, amount: 0.5}} transition={{ duration: 0.3, delay: index * 0.3}}
-                  key={project.id}
-                  className={`group relative overflow-hidden rounded-[15px] transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] animate-in fade-in slide-in-from-bottom ${hasLink ? "cursor-pointer" : "cursor-default"}`}
+                  initial={{ opacity: 0, y: -40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  key={index}
+                  className={`group relative overflow-hidden rounded-[18px] bg-[#10142a] border border-white/[0.06] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
                   onClick={() => hasLink && redirect(project.link)}
                 >
-                  <div className="h-[119px] relative overflow-hidden">
+                  <div className="h-[160px] relative overflow-hidden">
                     <ImageWithFallback
                       alt={project.title}
-                      className="rounded-t-[15px] w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="w-full h-full object-cover"
                       src={project.image}
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#10142a] via-[#10142a]/40 to-transparent" />
 
-                    {hasLink && (
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center gap-2">
-                        <FaArrowUpRightFromSquare className="w-4 h-4 text-white" />
-                        <span className="text-white text-[13px] font-medium tracking-[1px]">
-                          Ver projeto
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                    <div className="w-full px-2 justify-between flex items-center gap-2 absolute top-2">
+                      <span
+                        className="flex items-center gap-1.5 text-[11px] font-semibold px-2.5 py-1 rounded-full backdrop-blur-md"
+                        style={{
+                          backgroundColor: linkTypeConfig[project.linkType].badgeBg,
+                          color: linkTypeConfig[project.linkType].badgeText,
+                        }}
+                      >
+                        {linkTypeConfig[project.linkType].icon}
+                        {linkTypeConfig[project.linkType].label}
+                      </span>
 
-                  <div className="h-full flex flex-col gap-3 p-4 backdrop-blur-[4.6px] bg-[rgba(148,148,148,0.14)] rounded-b-[15px] border border-[rgba(255,255,255,0.05)]">
-                    <h3 className="text-white text-[22px] text-center">
+                      <span
+                        className="text-[11px] text-white px-2.5 py-1 rounded-full backdrop-blur-md"
+                        style={{ backgroundColor: "rgba(0,0,0,0.35)" }}
+                      >
+                        {project.technologies}
+                      </span>
+                    </div>
+
+                    <h3 className="absolute bottom-0 left-4 right-4 text-white text-[22px] font-bold drop-shadow-md">
                       {project.title}
                     </h3>
+                  </div>
 
-                    <p className="text-white text-[13px] font-normal text-justify">
+                  <div className="p-[18px] pt-4">
+                    <p className="text-white/70 text-[13px] leading-relaxed line-clamp-2">
                       {project.description}
                     </p>
 
-                    <p className="text-right text-[12px]" style={{color: theme.accentColor}}>
-                      {project.technologies}
-                    </p>
+                    {hasLink && (
+                      <button
+                        style={{ backgroundColor: theme.primaryColor }}
+                        className="cursor-pointer mt-4 w-full flex items-center justify-center gap-3 p-2 rounded-[15px] text-white text-[13px] font-semibold transition-transform hover:scale-[1.02]"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          redirect(project.link);
+                        }}
+                      >
+                        {linkTypeConfig[project.linkType].buttonLabel}
+                        <FaArrowUpRightFromSquare className="w-3 h-3" />
+                      </button>
+                    )}
                   </div>
                 </motion.div>
               );
@@ -353,11 +319,9 @@ export default function App() {
             return (
               <div
                 key={index}
-                className=" group w-full p-2 h-full min-h-[275px] rounded-[15px] backdrop-blur-[4.6px] bg-[rgba(158,158,158,0.2)] transition-all duration-500 hover:scale-[1.02] hover:-translate-y-2 hover:bg-[rgba(180,180,180,0.25)]"
+                className="group w-full min-h-[280px] rounded-[18px] bg-white/[0.03] border-2 border-dashed border-white/10 transition-all duration-500 hover:bg-white/[0.05] hover:border-white/20 flex items-center justify-center"
               >
-                <div className="flex items-center justify-center h-full w-full rounded-[15px] border-dashed border-2 border-[rgba(200,200,200,0.2)] transition-all duration-500 group-hover:border-[rgba(255,255,255,0.35)]">
-                  <FaCirclePlus className="w-12 h-12 text-[rgba(158,158,158,0.2)] transition-all duration-500 group-hover:scale-110 group-hover:text-[rgba(255,255,255,0.35)]" />
-                </div>
+                <FaCirclePlus className="w-10 h-10 text-white/15 transition-all duration-500 group-hover:scale-110 group-hover:text-white/30" />
               </div>
             );
           })}
@@ -366,20 +330,6 @@ export default function App() {
 
       <div className="bg-[#080b1a] p-10" id="contact">
         <div className="h-full flex flex-col items-center justify-between">
-          <div className="flex gap-[16px] mb-5">
-            <button className="w-full h-full p-2 bg-[#f6f6f6] rounded-full flex items-center justify-center hover:scale-105 transition-transform">
-              <ImageWithFallback alt="YouTube" className="w-[25px] h-[25px]" src={imgYoutube} />
-            </button>
-            <button className="w-full h-full p-2 bg-[#f6f6f6] rounded-full flex items-center justify-center hover:scale-105 transition-transform">
-              <ImageWithFallback alt="Instagram" className="w-[25px] h-[25px]" src={imgInstagram} />
-            </button>
-            <button className="w-full h-full p-2 bg-[#f6f6f6] rounded-full flex items-center justify-center hover:scale-105 transition-transform">
-              <ImageWithFallback alt="Twitter" className="w-[25px] h-[25px]" src={imgTwitter} />
-            </button>
-            <button className="w-full h-full p-2 bg-[#f6f6f6] rounded-full flex items-center justify-center hover:scale-105 transition-transform">
-              <ImageWithFallback alt="Facebook" className="w-[25px] h-[25px]" src={imgFacebook} />
-            </button>
-          </div>
           <p className="text-white text-[16px] text-center leading-normal mb-7">
             Copyright © 2026 - All rights reserved | This website design <br /> was made by{' '}
             <span className="font-semibold" style={{ color: theme.highlightColor }}>Lucas Maia</span>

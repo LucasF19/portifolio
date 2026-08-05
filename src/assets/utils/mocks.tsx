@@ -1,10 +1,85 @@
-import { FaAngular, FaGitAlt, FaNodeJs, FaPython, FaReact, FaVuejs } from "react-icons/fa";
+import React from "react";
+
+import { FaAngular, FaFigma, FaGitAlt, FaGithub, FaGlobe, FaNodeJs, FaPython, FaReact, FaVuejs } from "react-icons/fa";
 import { SiJavascript, SiMui, SiTypescript } from "react-icons/si";
 import { TbBrandCSharp } from "react-icons/tb";
+
+import ashUp from "../../imports/Projects/ashUp.png";
+import solarsMovie from "../../imports/Projects/solarsMovie.png";
+import imovie from "../../imports/Projects/imovie.png";
+import MusicPlayer from "../../imports/Projects/musicPlayer.png";
+import Floryou from "../../imports/Projects/floricultura.png";
 
 import Brain from "../../assets/images/brain.png";
 import Clean from "../../assets/images/clean.png";
 import Paint from "../../assets/images/paint.png";
+
+export const projects = [
+  {
+    title: "Ash Up",
+    description: "Projeto desenvolvido com foco em gameplay de plataforma.",
+    technologies: "GameMaker - React",
+    image: ashUp,
+    link: "https://www.figma.com/design/xjAAFYQMjTMbkfs2gRQVrR/Ash-up?m=auto&t=idjbLDoFwMgiAfy0-1",
+    linkType: "design"
+  },
+  {
+    title: "Solars Movies",
+    description: "Aplicação de catálogo de filmes com foco em experiência do usuário",
+    technologies: "React - Mui",
+    image: solarsMovie,
+    link: "https://www.figma.com/design/3cR1gzxRRcvuMLkLmIU4id/Streaming-interface?m=auto&t=idjbLDoFwMgiAfy0-1",
+    linkType: "design"
+  },
+  {
+    title: "Imovie",
+    description: "Aplicativo Mobile para exibição de filmes consumindo API externa.",
+    technologies: "React - Mui - Tmdb - Node",
+    image: imovie,
+    link: "https://i-movie-vmuy.vercel.app/home",
+    linkType: "site"
+  },
+  {
+    title: "Music Player",
+    description: "Player de música integrado com a letra que exibe em sincronia enquanto a música é reproduzida.",
+    technologies: "React - Tailwind - Express",
+    image: MusicPlayer,
+    link: "https://github.com/LucasF19/Music-Player",
+    linkType: "design"
+  },
+  {
+    title: "Floryu",
+    description: "Protótipo de uma loja online de flores desenvolvido no Figma.",
+    technologies: "Figma",
+    image: Floryou,
+    link: "https://www.figma.com/design/NDZsiJGuWhHhyZf1O32QVz/Floricultura?m=auto&t=39XiEqvVZKruJRvy-1",
+    linkType: "design"
+  },
+];
+
+export const linkTypeConfig = {
+  site: {
+    label: "Site ao vivo",
+    icon: <FaGlobe className="w-3 h-3" />,
+    badgeBg: "rgba(34,197,94,0.15)",
+    badgeText: "#4ADE80",
+    buttonLabel: "Acessar site",
+  },
+  design: {
+    label: "Apenas design",
+    icon: <FaFigma className="w-3 h-3" />,
+    badgeBg: "rgba(168,85,247,0.15)",
+    badgeText: "#C084FC",
+    buttonLabel: "Ver no Figma",
+  },
+  github: {
+    label: "Código-fonte",
+    icon: <FaGithub className="w-3 h-3" />,
+    badgeBg: "rgba(148,163,184,0.15)",
+    badgeText: "#CBD5E1",
+    buttonLabel: "Ver no GitHub",
+  },
+};
 
 export const technologies = [
   {
