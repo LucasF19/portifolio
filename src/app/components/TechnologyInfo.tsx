@@ -49,7 +49,7 @@ export function TechnologyInfo({
           overflow-hidden
           rounded-[25px]
           border
-          min-h-[270px]
+          min-h-[250px]
 
           animate-in
           fade-in

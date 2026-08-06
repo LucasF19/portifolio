@@ -255,7 +255,7 @@ export default function App() {
                   initial={{ opacity: 0, y: -40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.5 }}
-                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  transition={{ duration: 0.5, delay: index * 0.13 }}
                   key={index}
                   className={`group relative overflow-hidden rounded-[18px] bg-[#10142a] border border-white/[0.06] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
                   onClick={() => hasLink && redirect(project.link)}
@@ -330,12 +330,9 @@ export default function App() {
 
       <div className="bg-[#080b1a] p-10" id="contact">
         <div className="h-full flex flex-col items-center justify-between">
-          <p className="text-white text-[16px] text-center leading-normal mb-7">
+          <p className="text-white text-[13px] text-center leading-normal">
             Copyright © 2026 - All rights reserved | This website design <br /> was made by{' '}
             <span className="font-semibold" style={{ color: theme.highlightColor }}>Lucas Maia</span>
-          </p>
-          <p className="text-white text-[12px] text-center">
-            Terms & Conditions | Privacy policy
           </p>
         </div>
       </div>

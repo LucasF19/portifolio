@@ -18,7 +18,7 @@ export const projects = [
   {
     title: "Ash Up",
     description: "Projeto desenvolvido com foco em gameplay de plataforma.",
-    technologies: "GameMaker - React",
+    technologies: "Figma",
     image: ashUp,
     link: "https://www.figma.com/design/xjAAFYQMjTMbkfs2gRQVrR/Ash-up?m=auto&t=idjbLDoFwMgiAfy0-1",
     linkType: "design"
@@ -26,7 +26,7 @@ export const projects = [
   {
     title: "Solars Movies",
     description: "Aplicação de catálogo de filmes com foco em experiência do usuário",
-    technologies: "React - Mui",
+    technologies: "Figma",
     image: solarsMovie,
     link: "https://www.figma.com/design/3cR1gzxRRcvuMLkLmIU4id/Streaming-interface?m=auto&t=idjbLDoFwMgiAfy0-1",
     linkType: "design"
@@ -45,7 +45,7 @@ export const projects = [
     technologies: "React - Tailwind - Express",
     image: MusicPlayer,
     link: "https://github.com/LucasF19/Music-Player",
-    linkType: "design"
+    linkType: "github"
   },
   {
     title: "Floryu",
@@ -69,7 +69,7 @@ export const linkTypeConfig = {
     label: "Apenas design",
     icon: <FaFigma className="w-3 h-3" />,
     badgeBg: "rgba(168,85,247,0.15)",
-    badgeText: "#C084FC",
+    badgeText: "#a44bfc",
     buttonLabel: "Ver no Figma",
   },
   github: {
