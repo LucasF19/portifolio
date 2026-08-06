@@ -10,14 +10,12 @@ import { MdOutlineEmail } from "react-icons/md";
 import { FaArrowUpRightFromSquare, FaCirclePlus } from "react-icons/fa6";
 
 import { cardsAbout, linkTypeConfig, projects, technologies } from "../assets/utils/mocks";
-import { navItem, personalTheme, professionalTheme } from "../assets/utils/theme";
+import { personalTheme, professionalTheme } from "../assets/utils/theme";
 import { redirect } from "../assets/utils/tools";
 
 import imgBgProfessional from "../imports/ProjetoProfissional/mainBackground.png";
 import imgBgPersonal from "../imports/ProjetoPessoal/mainBackground.png";
 
-import svgPathsPersonal from "../imports/ProjetoPessoal/svg-86xydgqyks";
-import svgPathsProfessional from "../imports/ProjetoProfissional/svg-9qr9mfx9n8";
 import curriculumPdf from "../assets/cv/lucas-maia-cv.pdf";
 
 import ContactCard from "./components/ContactCard";
@@ -25,9 +23,17 @@ import ContactCard from "./components/ContactCard";
 export default function App() {
   const [isPersonal, setIsPersonal] = useState(false);
   const [selectedTech, setSelectedTech] = useState<number | null>(null);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   const timeoutRef = useRef<any>(1);
   const theme = isPersonal ? professionalTheme : personalTheme;
+
+  const navLinks = [
+    { href: "#home", label: "Início" },
+    { href: "#about", label: "Sobre" },
+    { href: "#projects", label: "Projetos" },
+    { href: "#contact", label: "Contato" },
+  ];
 
   return (
     <div>
@@ -75,12 +81,44 @@ export default function App() {
         <div className="px-[35px] pt-7 pb-8 relative flex flex-col justify-between h-full w-full">
           <div className="flex items-start justify-between">
             <nav>
-              <div className="flex gap-[65px] items-center ">
-                <a href="#home" className={navItem}>Início</a>
-                <a href="#about" className={navItem}>Sobre</a>
-                <a href="#projects" className={navItem}>Projetos</a>
-                <a href="#contact" className={navItem}>Contato</a>
-              </div>
+              <motion.div
+                className="flex gap-[65px] items-center"
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: {},
+                  visible: {
+                    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+                  },
+                }}
+              >
+                {navLinks.map((link) => (
+                  <motion.a
+                    key={link.href}
+                    href={link.href}
+                    onMouseEnter={() => setHoveredNav(link.href)}
+                    onMouseLeave={() => setHoveredNav(null)}
+                    className="relative text-white text-[16px] tracking-[1px] font-normal py-1 text-shadow-lg"
+                    variants={{
+                      hidden: { opacity: 0, y: -12 },
+                      visible: { opacity: 1, y: 0 },
+                    }}
+                    whileHover={{ y: -2, scale: 1.05 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {link.label}
+
+                    {hoveredNav === link.href && (
+                      <motion.span
+                        layoutId="nav-underline"
+                        className="absolute left-0 -bottom-1 h-[2px] w-full rounded-full"
+                        style={{ backgroundColor: theme.primaryColor }}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </motion.a>
+                ))}
+              </motion.div>
             </nav>
 
             <div className="flex flex-col text-end leading-[10px]">
@@ -329,12 +367,10 @@ export default function App() {
       </div>
 
       <div className="bg-[#080b1a] p-10" id="contact">
-        <div className="h-full flex flex-col items-center justify-between">
-          <p className="text-white text-[13px] text-center leading-normal">
-            Copyright © 2026 - All rights reserved | This website design <br /> was made by{' '}
-            <span className="font-semibold" style={{ color: theme.highlightColor }}>Lucas Maia</span>
-          </p>
-        </div>
+        <p className="text-white text-[13px] text-center leading-normal">
+          Copyright © 2026 - All rights reserved | This website design <br /> was made by{' '}
+          <span className="font-semibold" style={{ color: theme.highlightColor }}>Lucas Maia</span>
+        </p>
       </div>
     </div>
   );

@@ -48,7 +48,7 @@ export const projects = [
     linkType: "github"
   },
   {
-    title: "Floryu",
+    title: "Floryou",
     description: "Protótipo de uma loja online de flores desenvolvido no Figma.",
     technologies: "Figma",
     image: Floryou,

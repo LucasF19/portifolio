@@ -1,4 +1,5 @@
 import React from "react";
+import { motion, scale } from "framer-motion"
 
 interface TechnologyIconProps {
   icon: React.ElementType;
@@ -16,21 +17,18 @@ export function TechnologyIcon({
   onClick
 }: TechnologyIconProps) {
   return (
-    <div
+    <motion.div
       className="
         rounded-[14px]
         p-1
-        transition-all
-        duration-300
-        hover:scale-115
-        hover:-translate-y-1
-        hover:shadow-2xl
         group
         cursor-pointer
-        hover:opacity-[90%]
         hover:shadow-[0px_0px_10px_4px_#bababa22]
         "
       style={{ backgroundColor: iconBg}}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{scale: 0.9, opacity: 0.9}}
+      transition={{type: "spring", stiffness: 200}}
     >
       <button
         className="p-[30px] rounded-[14px] relative cursor-pointer"
@@ -51,6 +49,6 @@ export function TechnologyIcon({
           />
         </div>
       </button>
-    </div>
+    </motion.div>
   );
 }
