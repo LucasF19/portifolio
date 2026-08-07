@@ -295,10 +295,10 @@ export default function App() {
                   viewport={{ once: true, amount: 0.5 }}
                   transition={{ duration: 0.5, delay: index * 0.13 }}
                   key={index}
-                  className={`group relative overflow-hidden rounded-[18px] bg-[#10142a] border border-white/[0.06] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
+                  className={`flex flex-col justify-between max-h-[310px] rounded-[18px] overflow-hidden bg-[#10142a] border border-white/[0.06] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(255,255,255,0.08)] ${hasLink ? "cursor-pointer" : "cursor-default"}`}
                   onClick={() => hasLink && redirect(project.link)}
                 >
-                  <div className="h-[160px] relative overflow-hidden">
+                  <div className="h-full relative overflow-hidden">
                     <ImageWithFallback
                       alt={project.title}
                       className="w-full h-full object-cover"
@@ -325,13 +325,13 @@ export default function App() {
                         {project.technologies}
                       </span>
                     </div>
-
-                    <h3 className="absolute bottom-0 left-4 right-4 text-white text-[22px] font-bold drop-shadow-md">
-                      {project.title}
-                    </h3>
                   </div>
 
-                  <div className="p-[18px] pt-4">
+                  <div className="p-[18px] pt-0">
+                    <h3 className="text-white text-[22px] font-bold drop-shadow-md">
+                      {project.title}
+                    </h3>
+                      
                     <p className="text-white/70 text-[13px] leading-relaxed line-clamp-2">
                       {project.description}
                     </p>
