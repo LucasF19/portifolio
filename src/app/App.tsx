@@ -1,15 +1,15 @@
-import React, { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useEffect, useRef, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ImageWithFallback } from "./components/figma/ImageWithFallback";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { TechnologyInfo } from "./components/TechnologyInfo";
 import { TechnologyIcon } from "./components/TechnologyIcon";
 
-import { FaRegFileAlt, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { FaRegFileAlt, FaGithub, FaLinkedinIn, FaChevronDown } from "react-icons/fa";
 import { MdOutlineEmail } from "react-icons/md";
 import { FaArrowUpRightFromSquare, FaCirclePlus } from "react-icons/fa6";
 
-import { cardsAbout, linkTypeConfig, projects, technologies } from "../assets/utils/mocks";
+import { cardsAbout, linkTypeConfig, navLinks, projects, roles, stats, technologies, techStack } from "../assets/utils/mocks";
 import { personalTheme, professionalTheme } from "../assets/utils/theme";
 import { redirect } from "../assets/utils/tools";
 
@@ -28,52 +28,86 @@ export default function App() {
   const timeoutRef = useRef<any>(1);
   const theme = isPersonal ? professionalTheme : personalTheme;
 
-  const navLinks = [
-    { href: "#home", label: "Início" },
-    { href: "#about", label: "Sobre" },
-    { href: "#projects", label: "Projetos" },
-    { href: "#contact", label: "Contato" },
-  ];
+  const { scrollY } = useScroll();
+  const bgY = useTransform(scrollY, [0, 500], [0, 80]);
+
+  function useTypewriter(words: any, speed = 70, pause = 1800) {
+    const [text, setText] = useState("");
+    const [wordIndex, setWordIndex] = useState(0);
+    const [deleting, setDeleting] = useState(false);
+
+    useEffect(() => {
+      const current = words[wordIndex % words.length];
+      let timeout: number | undefined;
+
+      if (!deleting && text === current) {
+        timeout = setTimeout(() => setDeleting(true), pause);
+      } else if (deleting && text === "") {
+        setDeleting(false);
+        setWordIndex((i) => i + 1);
+      } else {
+        timeout = setTimeout(() => {
+          setText((t) =>
+            deleting ? current.slice(0, t.length - 1) : current.slice(0, t.length + 1)
+          );
+        }, deleting ? speed / 2 : speed);
+      }
+
+      return () => clearTimeout(timeout);
+    }, [text, deleting, wordIndex, words, speed, pause]);
+
+    return text;
+  }
+
+  const typedRole = useTypewriter(roles);
 
   return (
     <div>
       <div className="h-[100vh] relative overflow-hidden" id="home">
         <div className="absolute inset-0">
-          <div
+          <motion.div
+            style={{ y: bgY, backgroundImage: `url(${imgBgProfessional})` }}
             className={`
-              absolute inset-0
-              bg-cover
-              transition-opacity
-              duration-700
-              ease-in-out
+              absolute inset-0 -top-20 h-[calc(100%+80px)]
+              bg-cover bg-top
+              transition-opacity duration-700 ease-in-out
               ${isPersonal ? "opacity-0" : "opacity-100"}
-              bg-top
             `}
-            style={{
-              backgroundImage: `url(${imgBgProfessional})`,
-            }}
           />
-          <div
+          <motion.div
+            style={{ y: bgY, backgroundImage: `url(${imgBgPersonal})` }}
             className={`
-                absolute inset-0
-                bg-cover
-                transition-opacity
-                duration-700
-                ease-in-out
-                ${isPersonal ? "opacity-100" : "opacity-0"}
-                bg-bottom
-              `}
-            style={{
-              backgroundImage: `url(${imgBgPersonal})`,
-            }}
+              absolute inset-0 -top-20 h-[calc(100%+80px)]
+              bg-cover bg-bottom
+              transition-opacity duration-700 ease-in-out
+              ${isPersonal ? "opacity-100" : "opacity-0"}
+            `}
           />
+
           <div
             className="absolute left-0 top-0 h-full w-[75%] transition-all duration-700 ease-in-out"
             style={{
               backdropFilter: "blur(2px)",
               WebkitBackdropFilter: "blur(2px)",
               clipPath: "polygon(0 0, 75% 0, 45% 100%, 0 100%)",
-              background: theme.overlayColor,
+              background: `linear-gradient(160deg, ${theme.overlayColor} 0%, ${theme.overlayColor} 60%, rgba(0,0,0,0.15) 100%)`,
+            }}
+          />
+
+          <div
+            className="absolute left-0 top-0 h-full w-[75%] opacity-[0.06] pointer-events-none"
+            style={{
+              clipPath: "polygon(0 0, 75% 0, 45% 100%, 0 100%)",
+              backgroundImage: `radial-gradient(circle, ${theme.primaryColor} 1px, transparent 1px)`,
+              backgroundSize: "24px 24px",
+            }}
+          />
+
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.32) 100%)",
             }}
           />
         </div>
@@ -87,9 +121,7 @@ export default function App() {
                 animate="visible"
                 variants={{
                   hidden: {},
-                  visible: {
-                    transition: { staggerChildren: 0.08, delayChildren: 0.1 },
-                  },
+                  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
                 }}
               >
                 {navLinks.map((link) => (
@@ -99,10 +131,7 @@ export default function App() {
                     onMouseEnter={() => setHoveredNav(link.href)}
                     onMouseLeave={() => setHoveredNav(null)}
                     className="relative text-white text-[16px] tracking-[1px] font-normal py-1 text-shadow-lg"
-                    variants={{
-                      hidden: { opacity: 0, y: -12 },
-                      visible: { opacity: 1, y: 0 },
-                    }}
+                    variants={{ hidden: { opacity: 0, y: -12 }, visible: { opacity: 1, y: 0 } }}
                     whileHover={{ y: -2, scale: 1.05 }}
                     transition={{ duration: 0.3 }}
                   >
@@ -126,17 +155,24 @@ export default function App() {
                 <h2 className="text-white font-semibold text-[35px] leading-[55px] tracking-[2px] text-shadow-lg">
                   Lucas Maia
                 </h2>
-
-                <p className="font-light text-white text-[20px] tracking-[3px] text-shadow-lg">
-                  Desenvolvedor full-stack
+                <p className="font-light text-white text-[20px] tracking-[3px] text-shadow-lg h-[24px]">
+                  {typedRole}
+                  <span className="inline-block w-[2px] h-[16px] ml-[2px] align-middle bg-white animate-pulse" />
                 </p>
               </div>
 
-              <div className="flex items-center justify-end mt-5 gap-4">
-                <div onClick={() => redirect("https://github.com/LucasF19")} className={`cursor-pointer flex items-center justify-center h-8 w-8 rounded-full bg-white hover:scale-103`}>
+              <div className="flex items-center justify-end mt-2 gap-4">
+                <div
+                  onClick={() => redirect("https://github.com/LucasF19")}
+                  className="cursor-pointer flex items-center justify-center h-8 w-8 rounded-full bg-white hover:scale-103 transition-transform"
+                >
                   <FaGithub className="w-10 h-10" style={{ color: theme.primaryColor }} />
                 </div>
-                <div onClick={() => redirect("https://www.linkedin.com/in/lucas-maia-55728a233/")} className={`cursor-pointer flex items-center justify-center h-8 w-8 rounded-full hover:scale-103`} style={{ background: theme.primaryColor }} >
+                <div
+                  onClick={() => redirect("https://www.linkedin.com/in/lucas-maia-55728a233/")}
+                  className="cursor-pointer flex items-center justify-center h-8 w-8 rounded-full hover:scale-103 transition-transform"
+                  style={{ background: theme.primaryColor }}
+                >
                   <FaLinkedinIn className="text-white w-5 h-5" />
                 </div>
               </div>
@@ -144,12 +180,52 @@ export default function App() {
           </div>
 
           <div className="text-white w-[435px]">
-            <motion.h1 initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="text-[45px] mb-2 text-shadow-lg font-bold tracking-[11px] leading-[50px]">
+            <motion.h1
+              initial={{ opacity: 0, y: -40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-[45px] mb-2 text-shadow-lg font-bold tracking-[11px] leading-[50px]"
+            >
               OLÁ, SEJA BEM-VINDO
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: -40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="font-light text-[17px] tracking-[3px] leading-[20px]">
+            <motion.p
+              initial={{ opacity: 0, y: -40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="font-light text-[17px] tracking-[3px] leading-[20px]"
+            >
               Conheça projetos em que me dediquei durante minha carreira.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex gap-2 mt-4 flex-wrap"
+            >
+              {techStack.map((tech) => (
+                <span
+                  key={tech}
+                  className="text-[12px] px-3 py-1 rounded-full border border-white/30 backdrop-blur-sm text-white"
+                >
+                  {tech}
+                </span>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65 }}
+              className="flex gap-6 mt-5 text-shadow-lg"
+            >
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <span className="text-[22px] font-bold">{stat.value}</span>
+                  <p className="text-[12px] opacity-80">{stat.label}</p>
+                </div>
+              ))}
+            </motion.div>
           </div>
 
           <div className="flex flex-col items-end">
@@ -168,9 +244,17 @@ export default function App() {
               onClick={() => redirect(curriculumPdf)}
             >
               Currículo
-              <FaRegFileAlt className="w-4 h-4" />
+              <FaRegFileAlt className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
           </div>
+
+          <motion.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+            className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/70"
+          >
+            <FaChevronDown />
+          </motion.div>
         </div>
       </div>
 
@@ -178,10 +262,10 @@ export default function App() {
         <div className="flex items-stretch justify-between">
           <div className="max-w-[520px]">
             <motion.h3 initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.5 }} transition={{ duration: 0.8 }} className="text-white text-[35px] font-semibold drop-shadow-lg">
-              Sobre
+              Habilidades Técnicas
             </motion.h3>
             <motion.p initial={{ opacity: 0, y: -40 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.8 }} transition={{ duration: 0.8, delay: 0.3 }} className="text-[#f3f3f3] text-[18px] font-light tracking-[2px]">
-              Desenvolvimento de aplicações modernas com foco na experiência do usuário.
+              Tecnologias e ferramentas que utilizo no desenvolvimento de projetos.
             </motion.p>
             <div className="flex flex-wrap gap-4 mt-7">
               {technologies.map((tech, index) => (
@@ -331,7 +415,7 @@ export default function App() {
                     <h3 className="text-white text-[22px] font-bold drop-shadow-md">
                       {project.title}
                     </h3>
-                      
+
                     <p className="text-white/70 text-[13px] leading-relaxed line-clamp-2">
                       {project.description}
                     </p>

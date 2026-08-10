@@ -14,6 +14,22 @@ import Brain from "../../assets/images/brain.png";
 import Clean from "../../assets/images/clean.png";
 import Paint from "../../assets/images/paint.png";
 
+export const techStack = ["React", "Node.js", "TypeScript", "Tailwind"];
+
+export const stats = [
+  { value: "4+", label: "anos de experiência" },
+  { value: "15+", label: "projetos entregues" },
+];
+
+export const roles = ["Desenvolvedor full-stack", "Freelancer", "Criador de interfaces"];
+
+export const navLinks = [
+  { href: "#home", label: "Início" },
+  { href: "#about", label: "Sobre" },
+  { href: "#projects", label: "Projetos" },
+  { href: "#contact", label: "Contato" },
+];
+
 export const projects = [
   {
     title: "Ash Up",
