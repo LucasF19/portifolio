@@ -64,7 +64,7 @@ export default function App() {
   return (
     <div>
       <div className="min-h-[100svh] relative overflow-hidden" id="home">
-        <div className="absolute inset-0">
+      <div className="absolute inset-0">
           <motion.div
             style={{ y: bgY, backgroundImage: `url(${imgBgProfessional})` }}
             className={`
@@ -85,15 +85,7 @@ export default function App() {
           />
 
           <div
-            className="absolute left-0 top-0 h-full w-full md:w-[75%] transition-all duration-700 ease-in-out"
-            style={{
-              backdropFilter: "blur(2px)",
-              WebkitBackdropFilter: "blur(2px)",
-              background: `linear-gradient(160deg, ${theme.overlayColor} 0%, ${theme.overlayColor} 60%, rgba(0,0,0,0.15) 100%)`,
-            }}
-          />
-          <div
-            className="hidden md:block absolute left-0 top-0 h-full w-[75%] transition-all duration-700 ease-in-out"
+            className="absolute left-0 top-0 h-full w-[75%] transition-all duration-700 ease-in-out"
             style={{
               backdropFilter: "blur(2px)",
               WebkitBackdropFilter: "blur(2px)",
@@ -103,7 +95,7 @@ export default function App() {
           />
 
           <div
-            className="absolute inset-0 md:left-0 md:top-0 md:h-full md:w-[75%] opacity-[0.06] pointer-events-none"
+            className="absolute left-0 top-0 h-full w-[75%] opacity-[0.06] pointer-events-none"
             style={{
               clipPath: "polygon(0 0, 75% 0, 45% 100%, 0 100%)",
               backgroundImage: `radial-gradient(circle, ${theme.primaryColor} 1px, transparent 1px)`,
